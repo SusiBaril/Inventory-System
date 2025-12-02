@@ -91,9 +91,6 @@ body{
     width: 100%;
 }
 
-
-
-/* Dashboard */
 section{
     flex: 5;
     display: flex;
@@ -199,4 +196,111 @@ section .content-section {
     border-radius: 10px;
     padding: 25px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+}
+
+.inventory-parent {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 25px;
+    width: 100%;
+    height: 100%;
+}
+    
+.inventory-table {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-row-start: 1;
+    padding: 25px;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+}
+
+.inventory-analytics {
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 1;
+    padding: 25px;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+}
+
+.order-parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 25px;
+    width: 100%;
+    height: 100%;
+}
+    
+.order-pending, .order-complete {
+    grid-row: span 3 / span 3;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+}
+
+
+.customer-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 25px;
+    width: 100%;
+    height: 100%;
+}
+    
+.customer-total, .customer-new, .customer-spending, .customer-with-order{
+    grid-row: span 5 / span 5;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+}
+        
+.analytic-parent {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(6, 1fr);
+    gap: 25px;
+    width: 100%;
+    height: 100%;
+}
+    
+.analytic-sale {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+    border-radius: 10px;
+}
+
+.analytic-trend {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+    border-radius: 10px;
+}
+
+.analytic-selliing {
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-row-start: 4;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+    border-radius: 10px;
+}
+
+.analytic-inventory{
+    grid-column: span 2 / span 2;
+    grid-row: span 3 / span 3;
+    grid-column-start: 3;
+    grid-row-start: 4;
+    padding: 25px;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+    border-radius: 10px;
 }
