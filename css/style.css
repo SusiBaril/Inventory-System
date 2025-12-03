@@ -227,10 +227,9 @@ section .content-section {
 .order-parent {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: auto;
     gap: 25px;
     width: 100%;
-    height: 100%;
 }
     
 .order-pending, .order-complete {
@@ -238,16 +237,16 @@ section .content-section {
     border-radius: 10px;
     padding: 25px;
     box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.239);
+    height: fit-content;
 }
 
 
 .customer-parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: auto;
     gap: 25px;
     width: 100%;
-    height: 100%;
 }
     
 .customer-total, .customer-new, .customer-spending, .customer-with-order{
@@ -260,10 +259,9 @@ section .content-section {
 .analytic-parent {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+    grid-template-rows: auto;
     gap: 25px;
     width: 100%;
-    height: 100%;
 }
     
 .analytic-sale {
@@ -390,4 +388,32 @@ tr:hover {
 .modal-body h5{
     margin-top: 5px;
     margin-bottom: 5px;
+}
+
+.total-customer-table{
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.analytic-sale canvas,
+.analytic-trend canvas,
+.analytic-selliing canvas,
+.analytic-inventory canvas {
+    height: 500px !important;
+}
+
+.analytic-sale canvas,
+.analytic-trend canvas{
+    height: 300px !important;
+}
+
+.analytic-sale,
+.analytic-trend,
+.analytic-selliing,
+.analytic-inventory {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }

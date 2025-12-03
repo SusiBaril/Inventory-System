@@ -24,11 +24,16 @@
                 <h2>Admin Site</h2>
             </div>
             <ul>
-                <li><a href="/index.html" class="myLink"><span class="material-symbols-outlined">home</span>Dashboard</a></li>
-                <li><a href="/inventorty.html" class="myLink"><span class="material-symbols-outlined">box</span>Inventory</a></li>
-                <li><a href="/customers.html" class="myLink"><span class="material-symbols-outlined">people</span>Customers</a></li>
-                <li><a href="/order.html" class="myLink"><span class="material-symbols-outlined">assignment</span>Order</a></li>
-                <li><a href="/analytics.html" class="myLink"><span class="material-symbols-outlined">analytics</span>Analytics</a></li>
+                <li><a href="/index.html" class="myLink"><span
+                            class="material-symbols-outlined">home</span>Dashboard</a></li>
+                <li><a href="/inventorty.html" class="myLink"><span
+                            class="material-symbols-outlined">box</span>Inventory</a></li>
+                <li><a href="/customers.html" class="myLink"><span
+                            class="material-symbols-outlined">people</span>Customers</a></li>
+                <li><a href="/order.html" class="myLink"><span
+                            class="material-symbols-outlined">assignment</span>Order</a></li>
+                <li><a href="/analytics.html" class="myLink"><span
+                            class="material-symbols-outlined">analytics</span>Analytics</a></li>
             </ul>
         </nav>
 
@@ -43,17 +48,130 @@
             </div>
             <div class="content-section">
                 <div class="analytic-parent">
-                    <div class="analytic-sale">1</div>
-                    <div class="analytic-trend">2</div>
-                    <div class="analytic-selliing">3</div>
-                    <div class="analytic-inventory">4</div>
+
+                    <div class="analytic-sale">
+                        <h5>Monthly Revenue</h5>
+                        <canvas id="chartRevenue"></canvas>
+                    </div>
+                    
+                    <div class="analytic-trend">
+                        <h5>Orders Trend</h5>
+                        <canvas id="chartOrders"></canvas>
+                    </div>
+                    
+                    <div class="analytic-selliing">
+                        <h5>Top-Selling Products</h5>
+                        <canvas id="chartTopProducts"></canvas>
+                    </div>
+                    
+                    <div class="analytic-inventory">
+                        <h5>Inventory Distribution</h5>
+                        <canvas id="chartInventory"></canvas>
+                    </div>                    
+
                 </div>
             </div>
         </section>
     </div>
 
 
-    <script src="js/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Wait until the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // Monthly Revenue - Line Chart
+            const ctxRevenue = document.getElementById('chartRevenue');
+            if (ctxRevenue) {
+                new Chart(ctxRevenue, {
+                    type: 'line',
+                    data: {
+                        labels: [
+                            'January', 'February', 'March', 'April', 'May', 'June',
+                            'July', 'August', 'September', 'October', 'November', 'December'
+                        ],
+                        datasets: [{
+                            label: 'Revenue (₱)',
+                            data: [12000, 19000, 3000, 5000, 2000, 3000, 15000, 10000, 7000, 12000, 15000, 20000],
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            // Orders Trend - Bar Chart
+            const ctxOrders = document.getElementById('chartOrders');
+            if (ctxOrders) {
+                new Chart(ctxOrders, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                        datasets: [{
+                            label: 'Orders',
+                            data: [30, 50, 20, 40, 25, 35, 45, 60, 50, 55, 70, 65],
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            // Top-Selling Products - Pie Chart
+            const ctxTopProducts = document.getElementById('chartTopProducts');
+            if (ctxTopProducts) {
+                new Chart(ctxTopProducts, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Tshirt', 'Jeans', 'Bag', 'Hat', 'Shoes'],
+                        datasets: [{
+                            label: 'Top Products',
+                            data: [20, 15, 10, 12, 8],
+                            backgroundColor: [
+                                '#FF6384',
+                                '#36A2EB',
+                                '#FFCE56',
+                                '#4BC0C0',
+                                '#9966FF'
+                            ]
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            }
+
+            // Inventory Distribution - Doughnut Chart
+            const ctxInventory = document.getElementById('chartInventory');
+            if (ctxInventory) {
+                new Chart(ctxInventory, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Electronics', 'Clothing', 'Accessories'],
+                        datasets: [{
+                            label: 'Inventory',
+                            data: [50, 80, 30],
+                            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            }
+
+        });
+    </script>
 </body>
 
 </html>
