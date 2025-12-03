@@ -23,11 +23,16 @@
                 <h2>Admin Site</h2>
             </div>
             <ul>
-                <li><a href="/index.html" class="myLink"><span class="material-symbols-outlined">home</span>Dashboard</a></li>
-                <li><a href="/inventorty.html" class="myLink"><span class="material-symbols-outlined">box</span>Inventory</a></li>
-                <li><a href="/customers.html" class="myLink"><span class="material-symbols-outlined">people</span>Customers</a></li>
-                <li><a href="/order.html" class="myLink"><span class="material-symbols-outlined">assignment</span>Order</a></li>
-                <li><a href="/analytics.html" class="myLink"><span class="material-symbols-outlined">analytics</span>Analytics</a></li>
+                <li><a href="/index.html" class="myLink"><span
+                            class="material-symbols-outlined">home</span>Dashboard</a></li>
+                <li><a href="/inventorty.html" class="myLink"><span
+                            class="material-symbols-outlined">box</span>Inventory</a></li>
+                <li><a href="/customers.html" class="myLink"><span
+                            class="material-symbols-outlined">people</span>Customers</a></li>
+                <li><a href="/order.html" class="myLink"><span
+                            class="material-symbols-outlined">assignment</span>Order</a></li>
+                <li><a href="/analytics.html" class="myLink"><span
+                            class="material-symbols-outlined">analytics</span>Analytics</a></li>
             </ul>
         </nav>
 
@@ -42,15 +47,136 @@
             </div>
             <div class="content-section">
                 <div class="parent">
-                    <div class="div1">Total Sales Today</div>
-                    <div class="div2">Total Monthly Sales</div>
-                    <div class="div3">Customer Count / New Customers</div>
-                    <div class="div4">Income Chart</div>
-                    <div class="div5">Recent Orders</div>
-                    <div class="div6">Best Performing Category</div>
-                    <div class="div7">Low Stock Alerts</div>
-                    <div class="div8">Pending / Processing Orders</div>
-                    <div class="div9">Top-Selling Products</div>
+                    <div class="div1">
+                        <h5>Total Sales Today</h5>
+                        <div class="totalNum" id="sales">
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="div2">
+                        <h5>Total Monthly Sales</h5>
+                        <div class="totalNum" id="monthly">
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="div3">
+                        <h5>Customer Count / New Customers</h5>
+                        <div class="totalNum" id="customer">
+                            <h2>100</h2>
+                        </div>
+                    </div>
+                    <div class="div4">
+                        <h5>Recent Orders</h5>
+                        <div class="order" id="orders">
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Order Name</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                </tr>
+
+                                <tr>
+                                    <td>1</td>
+                                    <td>Crochet Bag</td>
+                                    <td>₱450</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>2</td>
+                                    <td>Pink Yarn Bundle</td>
+                                    <td>₱220</td>
+                                    <td><span class="status pending">Pending</span></td>
+                                </tr>
+
+                                <tr>
+                                    <td>3</td>
+                                    <td>Custom Keychain</td>
+                                    <td>₱120</td>
+                                    <td><span class="status cancelled">Cancelled</span></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Crochet Bag</td>
+                                    <td>₱450</td>
+                                    <td><span class="status completed">Completed</span></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="div5">
+                        <h5>Income Chart</h5>
+                        <div class="barchart" id="chart">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="div7">
+                        <h5>Low Stock Alerts</h5>
+                        <div class="lowStock" id="stock">
+                            <table class="minimal-table">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Stock</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tshirt</td>
+                                    <td>2</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Bag</td>
+                                    <td>5</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="div8">
+                        <h5>Pending / Processing Orders</h5>
+                        <div id="pending">
+                            <table class="minimal-table">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tshirt</td>
+                                    <td>Pending</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Bag</td>
+                                    <td>Pending</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="div9">
+                        <h5>Top-Selling Products</h5>
+                        <div id="top">
+                            <table class="minimal-table">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>No. Sold</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Tshirt</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Bag</td>
+                                    <td>18</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
