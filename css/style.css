@@ -417,3 +417,70 @@ tr:hover {
     justify-content: center;
     flex-direction: column;
 }
+
+.login-parent{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.login-parent h1{
+    margin-bottom: 20px;
+}
+
+.card{
+    width: 25rem;
+}
+
+.card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.card-footer a{
+    text-decoration: none;
+    color: #22252A;
+    font-weight: 500;
+    position: relative;
+    display: inline-block;
+    padding-bottom: 3px;
+}
+
+.card-footer a::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    height: 3px;
+    width: 0;
+    background: currentColor;
+    transition: width .32s ease, left .32s ease;
+}
+
+.card-footer a:hover::after,
+.card-footer a:focus::after {
+  width: 100%;
+  left: 0;
+}
+
+.card-title{
+    text-align: start;
+}
+
+.password-input{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.password-input a{
+    font-size: 14px;
+    margin-top: 5px;
+    text-decoration: none;
+    color: #22252A;
+    text-align: end;
+}
