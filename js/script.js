@@ -6,7 +6,7 @@ link.forEach(link => {
     let currentPath = window.location.pathname;
 
     if (currentPath === "/") {
-        currentPath = "/index.html";
+        currentPath = "/index.php";
     }
 
     if (linkHref === currentPath) {
