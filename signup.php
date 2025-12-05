@@ -1,6 +1,10 @@
 <?php
-
 require 'database/database.php';
+
+$db = new Database();
+$pdo = $db->opencon();  // if you still want direct PDO access
+$message = "";
+$alertClass = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -8,27 +12,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $confirm = $_POST["confirmpassword"];
 
-    // Check passwords match
+    // Password match check
     if ($password !== $confirm) {
         $message = "Passwords do not match!";
         $alertClass = "alert-danger";
     }
-    // Check if email exists
-    elseif ($pdo->prepare("SELECT * FROM users WHERE email = ?")->execute([$email]) && $pdo->prepare("SELECT * FROM users WHERE email = ?")->rowCount() > 0) {
-        $message = "Email Already Exists!";
-        $alertClass = "alert-danger";
-    } else {
-        // No errors, create account
-        $hashed = password_hash($password, PASSWORD_DEFAULT);
-        $insert = $pdo->prepare("INSERT INTO users (email, password) VALUES (?, ?)");
-        $insert->execute([$email, $hashed]);
+    else {
+        // Use the function from database.php
+        $existingUser = $db->getUserByEmail($email);
 
-        header("Location: login.php");
-        exit;
+        if ($existingUser) {
+            $message = "Email already exists!";
+            $alertClass = "alert-danger";
+        } 
+        else {
+            // Insert new user
+            $hashed = password_hash($password, PASSWORD_DEFAULT);
+
+            if($db->newUser($email, $hashed)) {
+                $message = "Account created successfully!";
+                $alertClass = "alert-success";
+            } else {
+                $message = "Error creating account. Please try again.";
+                $alertClass = "alert-danger";
+            }
+
+            header("Location: login.php");
+            exit;
+        }
     }
 }
-
 ?>
+
 
 
 <!DOCTYPE html>

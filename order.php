@@ -19,23 +19,8 @@
 <body>
 
     <div class="layout">
-        <nav class="sidebar">
-            <div class="logo">
-                <h2>Admin Site</h2>
-            </div>
-            <ul>
-                <li><a href="/index.html" class="myLink"><span
-                            class="material-symbols-outlined">home</span>Dashboard</a></li>
-                <li><a href="/inventorty.html" class="myLink"><span
-                            class="material-symbols-outlined">box</span>Inventory</a></li>
-                <li><a href="/customers.html" class="myLink"><span
-                            class="material-symbols-outlined">people</span>Customers</a></li>
-                <li><a href="/order.html" class="myLink"><span
-                            class="material-symbols-outlined">assignment</span>Order</a></li>
-                <li><a href="/analytics.html" class="myLink"><span
-                            class="material-symbols-outlined">analytics</span>Analytics</a></li>
-            </ul>
-        </nav>
+
+        <?php echo include 'components/sidebar.php'; ?>
 
         <section class="inventory">
             <div class="head-section">
