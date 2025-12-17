@@ -32,5 +32,21 @@ class Database {
         return $insert->execute([$email, $hashedPassword]);
     }
 
+    function addCategory($categoryName){
+        $insert = $this->pdo->prepare("INSERT INTO category (category_name) VALUES (?)");
+        return $insert->execute([$categoryName]);
+    }
+
+    function getCategories(){
+        $stmt = $this->pdo->query("SELECT category_id, category_name FROM category ORDER BY category_name");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    function insertProduct(){
+        $insert = $this->pdo->prepare("INSERT INTO product (category_id, product_name, product_stock ,product_price) VALUES (?,?,?,?)");
+        return $insert->execute([$category_id, $product_name, $product_stock, $product_price]);
+    }
+    
+
 
 }

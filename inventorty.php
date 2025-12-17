@@ -1,3 +1,44 @@
+<?php
+require 'database/database.php';
+
+$db = new Database();
+$message = "";
+$alertClass = "";
+
+$categories = $db->getCategories();
+
+$product = $db->insertProduct();
+
+if (isset($_POST['add_category'])) {
+    $categoryName = trim($_POST['category_name']);
+
+    try {
+        $db->addCategory($categoryName);
+        $message = "Category added successfully!";
+        $alertClass = "alert-success";
+    } catch (PDOException $e) {
+        if ($e->getCode() == 23000) { // Duplicate entry
+            $message = "Category already exists!";
+            $alertClass = "alert-warning";
+        } else {
+            $message = "Error adding category.";
+            $alertClass = "alert-danger";
+        }
+    }
+}
+
+if (isset($_POST['add_product'])){
+
+    $category_id = $_POST['category_id'];
+    $product_name = $_POST['product_name'];
+    $product_stock = $_POST['product_stock'];
+    $product_price = $_POST['product_price'];
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +54,7 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;700&display=swap" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=<?php echo time(); ?>">
 </head>
 
 <body>
@@ -43,128 +84,52 @@
                         </div>
                         <div class="accordion" id="inventoryAccordion">
 
-                            <!-- Category 1 -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingElectronics">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseElectronics" aria-expanded="false"
-                                        aria-controls="collapseElectronics">
-                                        Electronics
-                                    </button>
-                                </h2>
-                                <div id="collapseElectronics" class="accordion-collapse collapse"
-                                    aria-labelledby="headingElectronics" data-bs-parent="#inventoryAccordion">
-                                    <div class="accordion-body">
-                                        <div class="inventory-heading">
-                                            <h5>Inventory</h5>
-                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#add-item">
-                                                Add Item
-                                            </button>
-                                        </div>
-                                        <table class="minimal-table">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Headphones</td>
-                                                <td>12</td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Smartphone</td>
-                                                <td>5</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php foreach ($categories as $category): ?>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading<?= $category['category_id'] ?>">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse<?= $category['category_id'] ?>" aria-expanded="false"
+                                            aria-controls="collapse<?= $category['category_id'] ?>">
 
-                            <!-- Category 2 -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingClothing">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseClothing" aria-expanded="false"
-                                        aria-controls="collapseClothing">
-                                        Clothing
-                                    </button>
-                                </h2>
-                                <div id="collapseClothing" class="accordion-collapse collapse"
-                                    aria-labelledby="headingClothing" data-bs-parent="#inventoryAccordion">
-                                    <div class="accordion-body">
-                                        <div class="inventory-heading">
-                                            <h5>Inventory</h5>
-                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#add-item">
-                                                Add Item
-                                            </button>
-                                        </div>
-                                        <table class="minimal-table">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Tshirt</td>
-                                                <td>20</td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Jeans</td>
-                                                <td>15</td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                                            <?= htmlspecialchars($category['category_name']) ?>
+                                        </button>
+                                    </h2>
 
-                            <!-- Category 3 -->
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingAccessories">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#collapseAccessories" aria-expanded="false"
-                                        aria-controls="collapseAccessories">
-                                        Accessories
-                                    </button>
-                                </h2>
-                                <div id="collapseAccessories" class="accordion-collapse collapse"
-                                    aria-labelledby="headingAccessories" data-bs-parent="#inventoryAccordion">
-                                    <div class="accordion-body">
-                                        <div class="inventory-heading">
-                                            <h5>Inventory</h5>
-                                            <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
-                                                data-bs-target="#add-item">
-                                                Add Item
-                                            </button>
+                                    <div id="collapse<?= $category['category_id'] ?>" class="accordion-collapse collapse"
+                                        aria-labelledby="heading<?= $category['category_id'] ?>"
+                                        data-bs-parent="#inventoryAccordion">
+
+                                        <div class="accordion-body">
+                                            <div class="inventory-heading">
+                                                <h5>Inventory</h5>
+                                                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal"
+                                                    data-bs-target="#add-item">
+                                                    Add Item
+                                                </button>
+                                            </div>
+
+                                            <table class="minimal-table">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Product</th>
+                                                    <th>Stock</th>
+                                                    <th>Price</th>
+                                                </tr>
+                                                <tr>
+                                                    <?php ?>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    <?php ?>
+                                                </tr>
+                                            </table>
                                         </div>
-                                        <table class="minimal-table">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Product</th>
-                                                <th>Stock</th>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Bag</td>
-                                                <td>8</td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Hat</td>
-                                                <td>12</td>
-                                            </tr>
-                                        </table>
                                     </div>
                                 </div>
-                            </div>
+                            <?php endforeach; ?>
 
                         </div>
-
                     </div>
                     <div class="inventory-analytics">
                         <h5>Stock Analytics</h5>
@@ -197,44 +162,51 @@
     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <form method="POST" class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Category</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h5>Category Name:</h5>
-                    <input type="text" class="form-control" placeholder="Enter category name">
+                    <input type="text" name="category_name" class="form-control" placeholder="Enter category name"
+                        required>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Add</button>
+                    <button type="submit" name="add_category" class="btn btn-primary">Add</button>
                 </div>
-            </div>
+                <?php if (!empty($message)): ?>
+                    <div class="alert <?php echo $alertClass; ?> alert-dismissible fade show" role="alert">
+                        <?php echo $message; ?>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                <?php endif; ?>
+            </form>
         </div>
     </div>
 
     <div class="modal fade" id="add-item" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
+            <form method="POST" class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Product</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h5>Product Name:</h5>
-                    <input type="text" class="form-control" placeholder="Enter Product Name">
+                    <input type="text" name="product_name" class="form-control" placeholder="Enter Product Name">
                     <h5>Product Stock:</h5>
-                    <input type="number" class="form-control" placeholder="Enter Product Stock">
+                    <input type="number" name="product_stock" class="form-control" placeholder="Enter Product Stock">
                     <h5>Product Price:</h5>
-                    <input type="text" id="priceInput" class="form-control" placeholder="Enter Product Price">
+                    <input type="number" name="product_price" id="priceInput" class="form-control" placeholder="Enter Product Price">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add</button>
+                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Add</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 
