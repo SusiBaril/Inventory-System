@@ -42,11 +42,10 @@ class Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    function insertProduct(){
+    function insertProduct($category_id, $product_name, $product_stock, $product_price){
         $insert = $this->pdo->prepare("INSERT INTO product (category_id, product_name, product_stock ,product_price) VALUES (?,?,?,?)");
+
         return $insert->execute([$category_id, $product_name, $product_stock, $product_price]);
     }
     
-
-
 }

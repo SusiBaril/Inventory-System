@@ -7,7 +7,6 @@ $alertClass = "";
 
 $categories = $db->getCategories();
 
-$product = $db->insertProduct();
 
 if (isset($_POST['add_category'])) {
     $categoryName = trim($_POST['category_name']);
@@ -27,12 +26,21 @@ if (isset($_POST['add_category'])) {
     }
 }
 
-if (isset($_POST['add_product'])){
+if (isset($_POST['add_product'])) {
 
     $category_id = $_POST['category_id'];
     $product_name = $_POST['product_name'];
     $product_stock = $_POST['product_stock'];
     $product_price = $_POST['product_price'];
+
+    try {
+        $db->insertProduct($category_id, $product_name, $product_stock, $product_price);
+        $message = "Product added successfully!";
+        $alertClass = "alert-success";
+    } catch (PDOException $e) {
+        $message = "Error adding product.";
+        $alertClass = "alert-danger";
+    }
 
 }
 
@@ -117,10 +125,10 @@ if (isset($_POST['add_product'])){
                                                 </tr>
                                                 <tr>
                                                     <?php ?>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
                                                     <?php ?>
                                                 </tr>
                                             </table>
@@ -200,11 +208,13 @@ if (isset($_POST['add_product'])){
                     <h5>Product Stock:</h5>
                     <input type="number" name="product_stock" class="form-control" placeholder="Enter Product Stock">
                     <h5>Product Price:</h5>
-                    <input type="number" name="product_price" id="priceInput" class="form-control" placeholder="Enter Product Price">
+                    <input type="text" name="product_price" id="priceInput" class="form-control"
+                        placeholder="Enter Product Price">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Add</button>
+                    <button type="submit" name="add_product" class="btn btn-success"
+                        data-bs-dismiss="modal">Add</button>
                 </div>
             </form>
         </div>
@@ -213,6 +223,18 @@ if (isset($_POST['add_product'])){
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="js/script.js"></script>
+
+    <script>
+        const priceInput = document.getElementById('priceInput');
+        priceInput.addEventListener('blur', function () {
+            // Just ensure it's a valid number with 2 decimals
+            if (this.value) {
+                this.value = parseFloat(this.value).toFixed(2);
+            }
+        });
+
+    </script>
+
 </body>
 
 </html>

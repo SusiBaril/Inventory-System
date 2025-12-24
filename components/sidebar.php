@@ -4,7 +4,7 @@
     </div>
     <ul>
         <li><a href="/ADMIN-SITE/index.php" class="myLink"><span class="material-symbols-outlined">home</span>Dashboard</a></li>
-        <li><a href="/ADMIN-SITE/inventorty.php" class="myLink"><span class="material-symbols-outlined">box</span>Inventory</a>
+        <li><a href="/ADMIN-SITE/inventory.php" class="myLink"><span class="material-symbols-outlined">box</span>Inventory</a>
         </li>
         <li><a href="/ADMIN-SITE/customers.php" class="myLink"><span class="material-symbols-outlined">people</span>Customers</a>
         </li>
